@@ -13,8 +13,8 @@ module.exports = {
 					{ name: 'Information required', value: 'Information required' },
 					{ name: 'Not a bug', value: 'Not a bug' },
 					{ name: 'Roblox', value: 'Roblox' },
-					{ name: 'Fixed', value: 'Fixed next update' },
-					{ name: 'Fixed in future update', value: 'Fixed in future upd' },
+					{ name: 'Fixed next update', value: 'Fixed next update' },
+					{ name: 'Fixed in future update', value: 'Fixed in future update' },
 					{ name: 'Fixed in new servers', value: 'Fixed in new servers' },
 					{ name: 'Not fixing', value: 'Not fixing' },
 				)),
@@ -53,7 +53,7 @@ module.exports = {
                     embed.setTitle('Bug Fixed');
                     embed.setDescription('This bug has been fixed and will be included in the next update.');
                     break;
-                case 'Fixed in future upd':
+                case 'Fixed in future update':
                     embed.setColor('#00FF00');
                     embed.setTitle('Bug Fixed in Future Update');
                     embed.setDescription('This bug has been fixed and will be included in a future update.');
