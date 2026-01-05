@@ -77,6 +77,11 @@ module.exports = {
                 .setName('getuser')
                 .setDescription('See who submitted a picture')
                 .addStringOption(option => option.setName('messageid').setDescription('MessageID of picture').setRequired(true)))
+        .addSubcommand(subcommand => 
+            subcommand
+                .setName('inspect')
+                .setDescription('Inspect a submission from a user')
+                .addStringOption(option => option.setName('messageid').setDescription('MessageID of picture').setRequired(true)))
         .addSubcommand(subcommand =>
             subcommand
                 .setName('delete')
@@ -94,6 +99,36 @@ module.exports = {
             if (userId)
                 interaction.editReply(`The user that entered this submission is: <@${userId}>`)
             else
+                interaction.editReply('This is not a valid messageid')
+            break
+        case 'inspect':
+            await interaction.deferReply()
+            var messageId = interaction.options.getString('messageid')
+            let voteIds = await photocontestHandler.getSubmissionVotes(messageId, interaction.guild.id).catch(err => {
+                interaction.editReply('Experienced error while getting votes')
+            })
+            if (voteIds) {
+                let voteMentions = []
+                voteIds.forEach(vote => {
+                    voteMentions.push(interaction.guild.members.fetch(vote.id).then(member => {
+                        if (member) {
+                            let joinedAt = Math.floor(member.joinedTimestamp / 1000)
+                            let createdAt = Math.floor(member.user.createdTimestamp / 1000)
+                            return `<@${vote.id}> (Joined: <t:${joinedAt}:d>, Created: <t:${createdAt}:d>)`
+                        }
+                        return `<@${vote.id}>`
+                    }))
+                })
+                
+                Promise.all(voteMentions).then(results => {
+                    if (results.length == 0) {
+                        interaction.editReply('The following users voted for this submission: No votes yet')
+                        return 'No votes yet'
+                    }
+                    interaction.editReply(`The following users voted for this submission:\n${results.join('\n')}`)
+                })
+                
+            } else
                 interaction.editReply('This is not a valid messageid')
             break
         case 'delete':

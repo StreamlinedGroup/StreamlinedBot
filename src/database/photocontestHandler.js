@@ -142,6 +142,21 @@ exports.getVotes = function(guild) {
     })
 }
 
+exports.getSubmissionVotes = function(messageid, guild) {
+    return new Promise((resolve, reject) => {
+        connection.pool.query(`SELECT id FROM voted WHERE messageid='${messageid}' AND guild='${guild}'`, function (err, result, fields) {
+            if (err) {
+                reject(err)
+                console.log(err)
+            }
+            if (result)
+                resolve(result)
+            else
+                resolve([])
+        })
+    })
+}
+
 exports.getWinners = function(guild, x = 1) {
     return new Promise((resolve, reject) => {
         connection.pool.query(`
