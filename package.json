@@ -5,12 +5,10 @@
   "main": "Bot.js",
   "scripts": {
     "start": "node Bot.js",
-    "deploy-commands": "node src/deploy-commands.js",
-    "preinstall": "npx only-allow pnpm"
+    "deploy-commands": "node src/deploy-commands.js"
   },
   "author": "Arno",
   "license": "ISC",
-  "packageManager": "pnpm@9.15.4",
   "dependencies": {
     "@discordjs/rest": "^2.6.0",
     "discord-api-types": "^0.38.32",
@@ -26,8 +24,7 @@
     "trello": "^0.11.0"
   },
   "engines": {
-    "node": "22.x",
-    "pnpm": "9.15.4"
+    "node": "22.x"
   },
   "repository": {
     "url": "https://github.com/arnomaris/StreamlinedBot"
