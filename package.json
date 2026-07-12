@@ -10,6 +10,7 @@
   },
   "author": "Arno",
   "license": "ISC",
+  "packageManager": "pnpm@9.15.4",
   "dependencies": {
     "@discordjs/rest": "^2.6.0",
     "discord-api-types": "^0.38.32",
@@ -25,7 +26,8 @@
     "trello": "^0.11.0"
   },
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "pnpm": "9.15.4"
   },
   "repository": {
     "url": "https://github.com/arnomaris/StreamlinedBot"
