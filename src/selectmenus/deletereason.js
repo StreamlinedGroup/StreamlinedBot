@@ -22,6 +22,10 @@ module.exports = {
                     .setLabel('Edited')
                     .setDescription('Submission is edited')
                     .setValue('edited'),
+                new StringSelectMenuOptionBuilder()
+                    .setLabel('Voting selection')
+                    .setDescription('Not selected for voting')
+                    .setValue('selection')
             );
 
         const row = new ActionRowBuilder()

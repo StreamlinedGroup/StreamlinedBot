@@ -87,9 +87,15 @@ module.exports = {
                 .setName('delete')
                 .setDescription('Delete submission from user')
                 .addStringOption(option => option.setName('messageid').setDescription('MessageID of picture').setRequired(true))
-                .addStringOption(option => option.setName('reason').setDescription('Reason for deletion').setRequired(true))),
+                .addStringOption(option => option.setName('reason').setDescription('Reason for deletion').setRequired(true)))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('softdelete')
+                .setDescription('Soft delete a submission from a user, user will not be notified')
+                .addStringOption(option => option.setName('messageid').setDescription('MessageID of picture').setRequired(true))),
     async execute(interaction) {
-        switch(interaction.options.getSubcommand()) {
+        const subcommand = interaction.options.getSubcommand()
+        switch(subcommand) {
         case 'getuser':
             await interaction.deferReply()
             var messageId = interaction.options.getString('messageid')
@@ -132,6 +138,7 @@ module.exports = {
                 interaction.editReply('This is not a valid messageid')
             break
         case 'delete':
+        case 'softdelete':
             await interaction.deferReply()
             var messageId = interaction.options.getString('messageid')
             var reason = interaction.options.getString('reason')
@@ -147,6 +154,9 @@ module.exports = {
                 })
                 photocontestHandler.deleteMessage(messageId, interaction.guild.id)
                 await interaction.editReply(`Succesfully deleted the entry from <@${userId}>`)
+                if (subcommand === 'softdelete') {
+                    return
+                }
                 let user = interaction.client.users.cache.get(userId)
                 if (user) {
                     const embed = new EmbedBuilder()

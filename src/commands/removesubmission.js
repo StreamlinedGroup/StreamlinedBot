@@ -6,7 +6,8 @@ const reasons = {
     lights: 'Your photo contest submission has been removed due to your train lights not being on, please read the rules and you are more than welcome to resubmit!',
     theme: 'Your photo contest submission has been removed due to your submission not following this weeks theme, please read the rules and you are more than welcome to resubmit!',
     rules: 'Your photo contest submission has been removed due to your submission not following the rules, please read the rules and you are more than welcome to resubmit!',
-    edited: 'Your photo contest submission has been removed due to your submission being edited, please read the rules and you are more than welcome to resubmit!'
+    edited: 'Your photo contest submission has been removed due to your submission being edited, please read the rules and you are more than welcome to resubmit!',
+    selection: ''
 }
 
 module.exports = {
@@ -37,6 +38,10 @@ module.exports = {
 
             photocontestHandler.deleteMessage(messageId, interaction.guild.id)
             await selectionInteraction.editReply(`Succesfully deleted the entry from <@${userId}>`)
+
+            if (value === 'selection') {
+                return
+            }
 
             const user = interaction.client.users.cache.get(userId)
             if (user) {
